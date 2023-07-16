@@ -13,9 +13,17 @@ public class BasketRepository : IBasketRepository
     public async Task DeleteBasketAsync(string userName)
         => await _cache.RemoveAsync(userName);
 
-    public async Task<ShoppingCart> GetBasketAsync(string userName)
+    //public async Task<ShoppingCart> GetBasketAsync(string userName)
+    //{
+    //    var basket = await _cache.GetStringAsync(userName);
+    //    if (String.IsNullOrEmpty(basket)) return null;
+
+    //    return JsonConvert.DeserializeObject<ShoppingCart>(basket);
+    //}
+
+    public ShoppingCart GetBasket(string userName)
     {
-        var basket = await _cache.GetStringAsync(userName);
+        var basket = _cache.GetString(userName);
         if (String.IsNullOrEmpty(basket)) return null;
 
         return JsonConvert.DeserializeObject<ShoppingCart>(basket);
@@ -24,6 +32,6 @@ public class BasketRepository : IBasketRepository
     public async Task<ShoppingCart> UpdateBasketAsync(ShoppingCart basket)
     {
         await _cache.SetStringAsync(basket.UserName, JsonConvert.SerializeObject(basket));
-        return await GetBasketAsync(basket.UserName);
+        return GetBasket(basket.UserName);
     }
 }
