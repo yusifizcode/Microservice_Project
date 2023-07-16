@@ -21,7 +21,7 @@ public class ProductRepository : IProductRepository
                     .Products
                     .Find(p => true)
                     .ToListAsync();
-    public async Task<IEnumerable<Product>> GetProductByNameAsync(string name)
+    public async Task<IEnumerable<Product>> GetProductsByNameAsync(string name)
     {
         FilterDefinition<Product> filter = Builders<Product>.Filter.Eq(p => p.Name, name);
         return await _context
@@ -29,7 +29,7 @@ public class ProductRepository : IProductRepository
                         .Find(filter)
                         .ToListAsync();
     }
-    public async Task<IEnumerable<Product>> GetProductByCategoryAsync(string categoryName)
+    public async Task<IEnumerable<Product>> GetProductsByCategoryAsync(string categoryName)
     {
         FilterDefinition<Product> filter = Builders<Product>.Filter.Eq(p => p.Category, categoryName);
         return await _context
