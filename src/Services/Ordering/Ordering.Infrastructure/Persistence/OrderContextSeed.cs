@@ -19,7 +19,7 @@ public class OrderContextSeed
     {
         return new List<Order>
             {
-                new Order() {UserName = "yusifiz", FirstName = "Yusif", LastName = "Osmanov", EmailAddress = "osmanov.yusif@gmail.com", AddressLine = "Sumgait", Country = "Azerbaijan", TotalPrice = 1350 }
+                new Order() {UserName = "yusifiz", FirstName = "Yusif", LastName = "Osmanov", EmailAddress = "yusifizz01@gmail.com", AddressLine = "Sumgait", Country = "Azerbaijan", TotalPrice = 1350 }
             };
     }
 }
