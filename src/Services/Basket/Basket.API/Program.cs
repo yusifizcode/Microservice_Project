@@ -24,6 +24,7 @@ builder.Services.AddStackExchangeRedisCache(options =>
 #region General Configration
 
 builder.Services.AddScoped<IBasketRepository, BasketRepository>();
+builder.Services.AddAutoMapper(typeof(Program));
 
 #endregion
 
