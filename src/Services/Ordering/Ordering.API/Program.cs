@@ -39,6 +39,13 @@ builder.Services.AddOptions<MassTransitHostedService>();
 
 #endregion
 
+#region General Configuration
+
+builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddScoped<BasketCheckoutConsumer>();
+
+#endregion
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
