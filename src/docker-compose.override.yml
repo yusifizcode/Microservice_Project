@@ -36,6 +36,17 @@ services:
     ports:
         - "1433:1433"
 
+  identitydb:
+    container_name: identitydb
+    restart: always
+    ports:
+      - "1444:1433"
+    volumes:
+      - identitydb_volume:/var/opt/mssql
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=admin1234
+
   rabbitmq:
     container_name: rabbitmq
     restart: always
@@ -145,3 +156,13 @@ services:
     ports:
       - "8005:80"
 
+  identityserver:
+    container_name: identityserver
+    restart: on-failure
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:DefaultConnection=Server=identitydb;Database=IdentityDb;User Id=sa;Password=admin1234;TrustServerCertificate=True"
+    ports:
+      - "8011:80"
+    depends_on:
+      - identitydb
