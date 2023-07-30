@@ -5,6 +5,7 @@ Services:
 	- discount.grpc => 5003
 	- ordering => 5004
 	- photoStock => 5006
+	- payment => 5007
 
 OcelotApiGw => 5010
 Shopping.Aggregator => 5005
