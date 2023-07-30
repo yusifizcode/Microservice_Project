@@ -4,6 +4,8 @@ Services:
 	- discount => 5002
 	- discount.grpc => 5003
 	- ordering => 5004
-	- photoStock => 5005
+	- photoStock => 5006
 
+OcelotApiGw => 5010
+Shopping.Aggregator => 5005
 IdentityServer => 5011

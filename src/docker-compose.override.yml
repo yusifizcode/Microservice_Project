@@ -80,6 +80,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "DatabaseSettings:ConnectionString=mongodb://catalogdb:27017"
+      - IdentityServerURL=http://identityserver
     depends_on:
       - catalogdb
     ports:
@@ -156,6 +157,15 @@ services:
     ports:
       - "8005:80"
 
+  photostock.api:
+    container_name: photostock.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - IdentityServerURL=http://identityserver
+    ports:
+      - "8006:80"
+
+
   identityserver:
     container_name: identityserver
     restart: on-failure
@@ -166,3 +176,4 @@ services:
       - "8011:80"
     depends_on:
       - identitydb
+
