@@ -1,0 +1,9 @@
+Services:
+	- catalog => 5000
+	- basket => 5001
+	- discount => 5002
+	- discount.grpc => 5003
+	- ordering => 5004
+	- photoStock => 5005
+
+IdentityServer => 5011
