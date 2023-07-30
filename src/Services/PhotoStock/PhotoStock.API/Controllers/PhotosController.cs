@@ -3,7 +3,7 @@ using PhotoStock.API.DTOs;
 
 namespace PhotoStock.API.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/v1/[controller]")]
 [ApiController]
 public class PhotosController : ControllerBase
 {
@@ -27,6 +27,7 @@ public class PhotosController : ControllerBase
         return BadRequest("Photo is empty!");
     }
 
+    [HttpDelete]
     public IActionResult PhotoDelete(string photoUrl)
     {
         var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/photos", photoUrl);

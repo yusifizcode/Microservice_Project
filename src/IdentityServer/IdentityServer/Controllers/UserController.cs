@@ -12,7 +12,7 @@ namespace IdentityServer.Controllers
 {
     [ApiController]
     [Authorize(LocalApi.PolicyName)]
-    [Route("api/[controller]/[action]")]
+    [Route("api/v1/[controller]/[action]")]
     public class UserController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
