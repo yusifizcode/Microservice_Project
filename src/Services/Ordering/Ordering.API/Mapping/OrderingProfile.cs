@@ -8,6 +8,6 @@ public class OrderingProfile : Profile
 {
 	public OrderingProfile()
 	{
-		CreateMap<CheckoutOrderCommand, BasketCheckoutEvent>().ReverseMap();
+		CreateMap<CheckoutOrderCommand, PaymentCheckoutEvent>().ReverseMap();
 	}
 }

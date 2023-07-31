@@ -24,7 +24,7 @@ builder.Services.AddStackExchangeRedisCache(options =>
 #region General Configration
 
 builder.Services.AddScoped<IBasketRepository, BasketRepository>();
-builder.Services.AddAutoMapper(typeof(Program));
+//builder.Services.AddAutoMapper(typeof(Program));
 
 #endregion
 
@@ -40,16 +40,16 @@ builder.Services.AddScoped<DiscountGrpcService>();
 
 #region MassTransit-RabbitMq Configuration
 
-builder.Services.AddMassTransit(config =>
-{
-    config.UsingRabbitMq((ctx, cfg) =>
-    {
-        cfg.Host(builder.Configuration["EventBusSettings:HostAddress"]);
-    });
-});
+//builder.Services.AddMassTransit(config =>
+//{
+//    config.UsingRabbitMq((ctx, cfg) =>
+//    {
+//        cfg.Host(builder.Configuration["EventBusSettings:HostAddress"]);
+//    });
+//});
 
-//builder.Services.AddMassTransitHostedService();
-builder.Services.AddOptions<MassTransitHostedService>();
+////builder.Services.AddMassTransitHostedService();
+//builder.Services.AddOptions<MassTransitHostedService>();
 
 #endregion
 

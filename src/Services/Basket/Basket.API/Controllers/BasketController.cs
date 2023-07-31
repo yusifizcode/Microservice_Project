@@ -2,7 +2,6 @@
 using Basket.API.Entities;
 using Basket.API.GrpcServices;
 using Basket.API.Repositories;
-using EventBus.Messages.Events;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -59,22 +58,22 @@ public class BasketController : ControllerBase
         return Ok();
     }
 
-    [HttpPost]
-    [Route("[action]")]
-    [ProducesResponseType((int)HttpStatusCode.Accepted)]
-    [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-    public async Task<IActionResult> Checkout([FromBody] BasketCheckout basketCheckout)
-    {
-        var basket = await _basketRepository.GetBasketAsync(basketCheckout.UserName);
-        if (basket == null)
-            return BadRequest();
+    //[HttpPost]
+    //[Route("[action]")]
+    //[ProducesResponseType((int)HttpStatusCode.Accepted)]
+    //[ProducesResponseType((int)HttpStatusCode.BadRequest)]
+    //public async Task<IActionResult> Checkout([FromBody] BasketCheckout basketCheckout)
+    //{
+    //    var basket = await _basketRepository.GetBasketAsync(basketCheckout.UserName);
+    //    if (basket == null)
+    //        return BadRequest();
 
-        var eventMessage = _mapper.Map<BasketCheckoutEvent>(basketCheckout);
-        eventMessage.TotalPrice = basketCheckout.TotalPrice;
+    //    var eventMessage = _mapper.Map<BasketCheckoutEvent>(basketCheckout);
+    //    eventMessage.TotalPrice = basketCheckout.TotalPrice;
 
-        await _publishEndpoint.Publish(eventMessage);
-        await _basketRepository.DeleteBasketAsync(basket.UserName);
+    //    await _publishEndpoint.Publish(eventMessage);
+    //    await _basketRepository.DeleteBasketAsync(basket.UserName);
 
-        return Accepted();
-    }
+    //    return Accepted();
+    //}
 }

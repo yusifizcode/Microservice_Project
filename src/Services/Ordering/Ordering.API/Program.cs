@@ -22,14 +22,20 @@ builder.Services.AddInfrastructureServices(builder.Configuration);
 
 builder.Services.AddMassTransit(config =>
 {
-    config.AddConsumer<BasketCheckoutConsumer>();
+    //config.AddConsumer<BasketCheckoutConsumer>();
+    config.AddConsumer<PaymentCheckoutConsumer>();
     config.UsingRabbitMq((ctx, cfg) =>
     {
         cfg.Host(builder.Configuration["EventBusSettings:HostAddress"]);
 
-        cfg.ReceiveEndpoint(EventBusConstants.BasketCheckoutQueue, c =>
+        //cfg.ReceiveEndpoint(EventBusConstants.BasketCheckoutQueue, c =>
+        //{
+        //    c.ConfigureConsumer<BasketCheckoutConsumer>(ctx);
+        //});
+
+        cfg.ReceiveEndpoint(EventBusConstants.PaymentCheckoutQueue, c =>
         {
-            c.ConfigureConsumer<BasketCheckoutConsumer>(ctx);
+            c.ConfigureConsumer<PaymentCheckoutConsumer>(ctx);
         });
     });
 });
@@ -42,7 +48,8 @@ builder.Services.AddOptions<MassTransitHostedService>();
 #region General Configuration
 
 builder.Services.AddAutoMapper(typeof(Program));
-builder.Services.AddScoped<BasketCheckoutConsumer>();
+//builder.Services.AddScoped<BasketCheckoutConsumer>();
+builder.Services.AddScoped<PaymentCheckoutConsumer>();
 
 #endregion
 
