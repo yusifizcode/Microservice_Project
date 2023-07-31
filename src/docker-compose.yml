@@ -79,9 +79,16 @@ services:
       context: .
       dockerfile: Services/PhotoStock/PhotoStock.API/Dockerfile
 
+  payment.api:
+    image: ${DOCKER_REGISTRY-}paymentapi
+    build:
+      context: .
+      dockerfile: Services/Payment/Payment.API/Dockerfile
+
 volumes:
   mongo_data:
   portainer_data:
   postgres_data:
   pgadmin_data:
   identitydb_volume:
+

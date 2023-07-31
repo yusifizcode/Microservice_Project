@@ -140,6 +140,9 @@ services:
       - catalog.api
       - discount.api
       - ordering.api
+      - payment.api
+      - photostock.api
+      - identityserver
     ports:
       - "8010:80"
 
@@ -156,6 +159,15 @@ services:
       - ordering.api
     ports:
       - "8005:80"
+
+  payment.api:
+    container_name: payment.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - IdentityServerURL=http://identityserver
+      - RabbitMQUrl=rabbitmq
+    ports:
+      - "8007:80"
 
   photostock.api:
     container_name: photostock.api
@@ -176,4 +188,5 @@ services:
       - "8011:80"
     depends_on:
       - identitydb
+
 
