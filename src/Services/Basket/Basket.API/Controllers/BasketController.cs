@@ -1,8 +1,6 @@
-﻿using AutoMapper;
-using Basket.API.Entities;
+﻿using Basket.API.Entities;
 using Basket.API.GrpcServices;
 using Basket.API.Repositories;
-using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -12,18 +10,12 @@ namespace Basket.API.Controllers;
 [ApiController]
 public class BasketController : ControllerBase
 {
-    private readonly IMapper _mapper;
-    private readonly IPublishEndpoint _publishEndpoint;
     private readonly IBasketRepository _basketRepository;
     private readonly DiscountGrpcService _discountGrpcService;
 
-    public BasketController(IMapper mapper,
-                            IPublishEndpoint publishEndpoint,
-                            IBasketRepository basketRepository,
+    public BasketController(IBasketRepository basketRepository,
                             DiscountGrpcService discountGrpcService)
     {
-        _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-        _publishEndpoint = publishEndpoint ?? throw new ArgumentNullException(nameof(publishEndpoint));
         _basketRepository = basketRepository ?? throw new ArgumentNullException(nameof(basketRepository));
         _discountGrpcService = discountGrpcService ?? throw new ArgumentNullException(nameof(discountGrpcService));
     }
