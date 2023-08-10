@@ -84,7 +84,7 @@ services:
     depends_on:
       - catalogdb
     ports:
-      - "8000:80"
+      - "5000:80"
 
   basket.api:
     container_name: basket.api
@@ -98,7 +98,7 @@ services:
       - basketdb
       - rabbitmq
     ports:
-      - "8001:80"
+      - "5001:80"
 
   discount.api:
     container_name: discount.api
@@ -109,7 +109,7 @@ services:
     depends_on: 
       - discountdb
     ports:
-      - "8002:80"
+      - "5002:80"
 
   discount.grpc:
     container_name: discount.grpc
@@ -119,7 +119,7 @@ services:
     depends_on:
       - discountdb
     ports:
-      - "8003:80"
+      - "5003:80"
 
   ordering.api:
     container_name: ordering.api
@@ -132,7 +132,7 @@ services:
       - orderdb
       - rabbitmq
     ports:
-      - "8004:80"
+      - "5004:80"
 
   ocelotapigw:
     container_name: ocelotapigw
@@ -148,7 +148,7 @@ services:
       - photostock.api
       - identityserver
     ports:
-      - "8010:80"
+      - "5010:80"
 
   shopping.aggregator:
     container_name: shopping.aggregator
@@ -162,7 +162,7 @@ services:
       - catalog.api
       - ordering.api
     ports:
-      - "8005:80"
+      - "5005:80"
 
   payment.api:
     container_name: payment.api
@@ -171,7 +171,7 @@ services:
       - IdentityServerUrl=http://identityserver
       - RabbitMQUrl=rabbitmq
     ports:
-      - "8007:80"
+      - "5007:80"
 
   photostock.api:
     container_name: photostock.api
@@ -179,7 +179,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - IdentityServerUrl=http://identityserver
     ports:
-      - "8006:80"
+      - "5006:80"
 
 
   identityserver:
@@ -189,7 +189,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - "ConnectionStrings:DefaultConnection=Server=identitydb,1433;Database=IdentityDb;User Id=sa;Password=admin1234"
     ports:
-      - "8011:80"
+      - "5011:80"
     depends_on:
       - identitydb
 
