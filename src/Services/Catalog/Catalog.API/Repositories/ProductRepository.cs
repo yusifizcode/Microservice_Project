@@ -1,5 +1,7 @@
 ﻿using Catalog.API.Data;
 using Catalog.API.Entities;
+using EventBus.Messages.Events;
+using MassTransit;
 using MongoDB.Driver;
 
 namespace Catalog.API.Repositories;
@@ -7,9 +9,13 @@ namespace Catalog.API.Repositories;
 public class ProductRepository : IProductRepository
 {
     private readonly ICatalogContext _context;
-
-    public ProductRepository(ICatalogContext context)
-        => _context = context ?? throw new ArgumentNullException(nameof(context));
+    private readonly IPublishEndpoint _publishEndpoint;
+    public ProductRepository(ICatalogContext context,
+                             IPublishEndpoint publishEndpoint)
+    {
+        _context = context ?? throw new ArgumentNullException(nameof(context));
+        _publishEndpoint = publishEndpoint ?? throw new ArgumentNullException(nameof(context));
+    }
 
     public async Task<Product> GetProductByIdAsync(string id)
         => await _context
@@ -58,6 +64,12 @@ public class ProductRepository : IProductRepository
                                     .Products
                                     .ReplaceOneAsync(filter: g => g.Id == product.Id,
                                                      replacement: product);
+
+        await _publishEndpoint.Publish<ProductNameChangedEvent>(new ProductNameChangedEvent
+        {
+            ProductId = product.Id,
+            UpdatedName = product.Name
+        });
 
         return updateResult.IsAcknowledged &&
                updateResult.ModifiedCount > 0;

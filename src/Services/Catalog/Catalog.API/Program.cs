@@ -1,5 +1,6 @@
 using Catalog.API.Data;
 using Catalog.API.Repositories;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc.Authorization;
 
@@ -15,6 +16,7 @@ builder.Services.AddControllers(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+#region General Configuration
 builder.Services.AddScoped<ICatalogContext, CatalogContext>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
@@ -24,6 +26,19 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     opitons.Audience = "resource_catalog";
     opitons.RequireHttpsMetadata = false;
 });
+#endregion
+
+#region MassTransit-RabbitMq Configuration
+
+builder.Services.AddMassTransit(config =>
+{
+    config.UsingRabbitMq((ctx, cfg) =>
+    {
+        cfg.Host(builder.Configuration["EventBusSettings:HostAddress"]);
+    });
+});
+
+#endregion
 
 var app = builder.Build();
 
