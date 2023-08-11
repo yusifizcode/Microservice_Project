@@ -1,11 +1,12 @@
 using Ocelot.Cache.CacheManager;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using OcelotApiGw.DelegateHandlers;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddHttpClient<TokenExchangeDelegateHandler>();
 builder.Configuration.AddJsonFile($"ocelot.{builder.Environment.EnvironmentName}.json", true, true);
-builder.Services.AddOcelot(builder.Configuration).AddCacheManager(settings => settings.WithDictionaryHandle());
 
 builder.Services.AddAuthentication().AddJwtBearer("GatewayAuthenticationScheme", options =>
 {
@@ -14,6 +15,9 @@ builder.Services.AddAuthentication().AddJwtBearer("GatewayAuthenticationScheme",
     options.RequireHttpsMetadata = false;
 });
 
+builder.Services.AddOcelot(builder.Configuration)
+                .AddCacheManager(settings => settings.WithDictionaryHandle())
+                .AddDelegatingHandler<TokenExchangeDelegateHandler>();
 
 var app = builder.Build();
 
