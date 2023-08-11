@@ -148,7 +148,7 @@
       "UpstreamPathTemplate": "/Payment",
       "UpstreamHttpMethod": [ "POST" ],
       "UpstreamScheme": "http",
-      "DelegatingHandlers": [ "TokenExchangeDelegateHandler" ]
+      "DelegatingHandlers": [ "TokenExchangeDelegateHandler" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "GatewayAuthenticationScheme"
       },

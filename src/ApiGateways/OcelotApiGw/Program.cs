@@ -6,7 +6,6 @@ using OcelotApiGw.DelegateHandlers;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddHttpClient<TokenExchangeDelegateHandler>();
-builder.Configuration.AddJsonFile($"ocelot.{builder.Environment.EnvironmentName}.json", true, true);
 
 builder.Services.AddAuthentication().AddJwtBearer("GatewayAuthenticationScheme", options =>
 {
@@ -18,6 +17,9 @@ builder.Services.AddAuthentication().AddJwtBearer("GatewayAuthenticationScheme",
 builder.Services.AddOcelot(builder.Configuration)
                 .AddCacheManager(settings => settings.WithDictionaryHandle())
                 .AddDelegatingHandler<TokenExchangeDelegateHandler>();
+
+builder.Configuration.AddJsonFile($"ocelot.{builder.Environment.EnvironmentName}.json", true, true);
+
 
 var app = builder.Build();
 
