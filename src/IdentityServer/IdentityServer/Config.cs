@@ -66,8 +66,8 @@ namespace IdentityServer
                     ClientSecrets = {new Secret("secret".Sha256())},
                     AllowOfflineAccess = true,
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
-                    AllowedScopes = { "payment_fullpermission", "basket_fullpermission",
-                                      "discount_fullpermission", "ordering_fullpermission", "gateway_fullpermission",
+                    AllowedScopes = { "basket_fullpermission",
+                                      "ordering_fullpermission", "gateway_fullpermission",
                                       IdentityServerConstants.LocalApi.ScopeName,
                                       IdentityServerConstants.StandardScopes.Email,
                                       IdentityServerConstants.StandardScopes.OpenId,
@@ -77,7 +77,15 @@ namespace IdentityServer
                     RefreshTokenExpiration = TokenExpiration.Absolute,
                     AbsoluteRefreshTokenLifetime = (int)(DateTime.Now.AddDays(60) - DateTime.Now).TotalSeconds,
                     RefreshTokenUsage = TokenUsage.ReUse
-                }
+                },
+                 new Client
+                {
+                    ClientName = "TokenExchangeClient",
+                    ClientId = "TokenExchangeClient",
+                    ClientSecrets = {new Secret("secret".Sha256())},
+                    AllowedGrantTypes = new[] { "urn:ietf:params:oauth:grant-type:token-exchange" },
+                    AllowedScopes = { "discount_fullpermission", "payment_fullpermission", IdentityServerConstants.StandardScopes.OpenId }
+                },
             };
     }
 }
